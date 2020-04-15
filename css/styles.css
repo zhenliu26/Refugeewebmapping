@@ -17,6 +17,7 @@
 footer {
     text-align: center;
     background-color:black;
+    position:fixed;
 }
 
 .navbar-default .navbar-nav li a, footer {
