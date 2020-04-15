@@ -5,7 +5,7 @@
 }
 
 .navbar, footer {
-    background-color: #23415C;
+
     /*padding:1% 0;*/
     font-size: 1.2em;
     padding-top: 20px;
@@ -14,10 +14,12 @@
 
 .navbar {
     margin-bottom: 5px;
+    background-color:#23415C
 }
 
 footer {
     text-align: center;
+    background-color:black;
 }
 
 .navbar-default .navbar-nav li a, footer {
