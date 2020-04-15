@@ -1,8 +1,109 @@
 ﻿body {
-    font-family:Rockwell;
+    /*height:100%;
+    width:100%;*/
+    font-family: Rockwell, sans-serif;
 }
 
-nav-padding{
-    width:90%;
-    margin:auto;
+.navbar, footer {
+    background-color: #23415C;
+    /*padding:1% 0;*/
+    font-size: 1.2em;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 5px;
+}
+
+footer {
+    text-align: center;
+}
+
+.navbar-default .navbar-nav li a, footer {
+    color: #D5D5D5;
+}
+
+    .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:active {
+        color: #fff;
+    }
+
+.fill-screen {
+    background-size: cover;
+    background-position: center;
+}
+
+.landing-text {
+    text-align: center;
+    vertical-align: middle;
+}
+
+    .landing-text h2 {
+        padding-bottom: 20px;
+    }
+
+    .landing-text h1 {
+        padding-top: 20px;
+        font-size: 500%;
+        font-weight: 700;
+    }
+
+#nav-padding {
+    width: 90%;
+    margin: auto;
+}
+
+.padding {
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.page-header {
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .page-header h2 {
+        color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.row {
+    padding-bottom: 0;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.field-duties {
+    font-style: italic;
+}
+
+.map-container {
+    align-content: center;
+    margin: auto;
+}
+
+.Skill-Heading {
+    color: brown;
+}
+
+.img-responsive {
+    margin: 0 auto;
+}
+
+.jumbotron {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.section-block {
+    padding-top: 0;
+    padding-top: 0;
 }
