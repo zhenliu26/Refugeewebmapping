@@ -1,4 +1,4 @@
-﻿body {
+body {
     font-family: Rockwell, sans-serif;
 }
 
@@ -60,6 +60,7 @@ footer {
     width: 80%;
     margin: auto;
     margin-top: 10px;
+    margin-bottom:10px;
 }
 
 .page-header {
@@ -113,8 +114,8 @@ footer {
 
 
 #mapview{
-    height:400px;
-    width:800px;
+    height:450px;
+    width:100%;
 }
 #mapwrap{
     align-content:center
