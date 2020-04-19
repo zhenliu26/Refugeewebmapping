@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,16 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-
-
-    <!-- Add Mapbox GL JS JavaScript file -->
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
-    <!-- Add in the Mapbox GL JS CSS file -->
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
-    <!-- Add styling info for the map -->
-
-
     <link href="css/styles.css" rel="stylesheet" />
+    <!--Load ESRI JavaScript CSS library-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/css/main.css">
     <title>Refugee Mapping</title>
 </head>
 <body>
@@ -49,17 +42,28 @@
                     <a href="Contact.html" class="nav-link">Contact</a>
                 </li>
             </ul>
-
         </div>
     </nav>
     <div class="padding">
+        <hr />
         <div class="container-fluid">
             <div class="row">
-                <div id="mapwrap">
+                <div class="col-md-3">
+                    <h6>Toggle Map/Scene View</h6>
+                    <button class="btn btn-primary btn-block" id="btnmap">Map View</button>
+                    <button class="btn btn-warning btn-block" id="btnscene">Scene View</button>
+                    <hr />
+                    <h6>Change Base Map</h6>
+                    <select id="lstbasemaps" class="form-control" onchange="ChangeBaseMap()">
+                    </select>
+                </div>
+
+                <div class="col-md-9">
                     <div id="mapview"></div>
                 </div>
             </div>
         </div>
+        <hr />
     </div>
 
     <footer>
@@ -73,27 +77,89 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-
+    <!--Load ESRI JavaScript library-->
+    <script src="https://js.arcgis.com/4.15/"></script>
     <script>
-        // Set your Mapbox access token
-        mapboxgl.accessToken = "pk.eyJ1IjoiaW55YWd3ZXNvIiwiYSI6ImNrOGY4b3J6bjAxcHQzZ3MwODd4NzZ6N3YifQ.mqTyVM1FEay7PuZ5Lz2Cxg";
+        let viewtype = "Map";
+        let basem = "topo";
 
-        /* The map variable stores a new mapbox gl map.
-        * map's center set to [-122.467, 37.798] with zoom 13.
-        * Set the style URL to your custom style
-        * Update the style with your custom style's Style URL.
-        * See the Style URL'S reference for more info: https://docs.mapbox.com/help/glossary/style-url/
-        */
-        var map = new mapboxgl.Map({
-            center: [0.00, 0.00],
-            zoom: 1,
-            style: "mapbox://styles/inyagweso/ck8khzo840n061irud05lhr0a",
-            container: "mapview"
+        Loadmap();
+        LoadBaseMaps();
+        function Loadmap() {
+            if (viewtype == "Map") {
+                require(["esri/Map", "esri/views/MapView"], function (Map, MapView) {
+                    base = new Map({ basemap: basem });
+                    mapview = new MapView({
+                        container: "mapview",
+                        map: base,
+                        center: [-65.631209, 7.270718],
+                        zoom: 5
+                    })
+                })
+
+            } else {
+                require(["esri/Map", "esri/views/SceneView"], function (Map, SceneView) {
+                    base = new Map({ basemap: basem });
+                    mapview = new SceneView({
+                        container: "mapview",
+                        map: base,
+                        center: [-65.631209, 7.270718],
+                        zoom: 2
+                    })
+                })
+            }
+        }
+
+        function LoadBaseMaps() {
+            let basemaps = ["Topographic Map", "Satellite Map", "Hybrid Map", "Openstreet Map", "Street Map", "Terrain Map"];
+            let lstbasemaps = document.getElementById("lstbasemaps");
+            for (i = 0; i < basemaps.length; i++) {
+                let option = document.createElement("option");
+                option.textContent = basemaps[i];
+                lstbasemaps.appendChild(option);
+            };
+        }
+
+        function ChangeBaseMap() {
+            let selectbase = document.getElementById("lstbasemaps").value;
+            switch (selectbase) {
+                case "Topographic Map":
+                    basem = "topo";
+                    break;
+                case "Satellite Map":
+                    basem = "satellite";
+                    break;
+                case "Hybrid Map":
+                    basem = "hybrid";
+                    break;
+                case "Openstreet Map":
+                    basem = "osm";
+                    break;
+                case "Street Map":
+                    basem = "streets";
+                    break;
+                case "Terrain Map":
+                    basem = "terrain";
+                    break;
+            }
+            Loadmap();
+        }
+
+        document.getElementById("btnmap").addEventListener("click", function () {
+            if (viewtype != "Map") {
+                viewtype = "Map";
+            }
+            ChangeBaseMap()
+            Loadmap();
+        });
+
+        document.getElementById("btnscene").addEventListener("click", function () {
+            if (viewtype != "Scene") {
+                viewtype = "Scene";
+            }
+            ChangeBaseMap()
+            Loadmap();
         });
     </script>
-   
-
-
 </body>
 </html>
