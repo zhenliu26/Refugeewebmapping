@@ -69,11 +69,11 @@ footer {
     margin-bottom: 10px;
 }
 
-    .page-header h2 {
-        color: black;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+ .page-header h2 {
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+ }
 
 .row {
     padding-bottom: 0;
@@ -114,7 +114,7 @@ footer {
 
 
 #mapview{
-    height:450px;
+    height:470px;
     width:100%;
 }
 #mapwrap{
